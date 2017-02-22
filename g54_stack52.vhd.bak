@@ -1,0 +1,406 @@
+-- Copyright (C) 1991-2013 Altera Corporation
+-- Your use of Altera Corporation's design tools, logic functions 
+-- and other software and tools, and its AMPP partner logic 
+-- functions, and any output files from any of the foregoing 
+-- (including device programming or simulation files), and any 
+-- associated documentation or information are expressly subject 
+-- to the terms and conditions of the Altera Program License 
+-- Subscription Agreement, Altera MegaCore Function License 
+-- Agreement, or other applicable license agreement, including, 
+-- without limitation, that your use is for the sole purpose of 
+-- programming logic devices manufactured by Altera and sold by 
+-- Altera or its authorized distributors.  Please refer to the 
+-- applicable agreement for further details.
+
+-- PROGRAM		"Quartus II 64-Bit"
+-- VERSION		"Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version"
+-- CREATED		"Wed Feb 22 12:10:40 2017"
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all; 
+
+LIBRARY work;
+
+ENTITY g54_stack52 IS 
+	PORT
+	(
+		RST :  IN  STD_LOGIC;
+		clk :  IN  STD_LOGIC;
+		ADDR :  IN  STD_LOGIC_VECTOR(5 DOWNTO 0);
+		DATA :  IN  STD_LOGIC_VECTOR(5 DOWNTO 0);
+		mode :  IN  STD_LOGIC_VECTOR(1 DOWNTO 0);
+		empty :  OUT  STD_LOGIC;
+		full :  OUT  STD_LOGIC;
+		NUM :  OUT  STD_LOGIC_VECTOR(5 DOWNTO 0);
+		value :  OUT  STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END g54_stack52;
+
+ARCHITECTURE bdf_type OF g54_stack52 IS 
+
+ATTRIBUTE black_box : BOOLEAN;
+ATTRIBUTE noopt : BOOLEAN;
+
+COMPONENT lpm_ff_0
+	PORT(enable : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 sset : IN STD_LOGIC;
+		 aclr : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF lpm_ff_0: COMPONENT IS true;
+ATTRIBUTE noopt OF lpm_ff_0: COMPONENT IS true;
+
+COMPONENT lpm_ff_1
+	PORT(enable : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 aclr : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF lpm_ff_1: COMPONENT IS true;
+ATTRIBUTE noopt OF lpm_ff_1: COMPONENT IS true;
+
+COMPONENT lpm_ff_4
+	PORT(enable : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 sset : IN STD_LOGIC;
+		 aclr : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF lpm_ff_4: COMPONENT IS true;
+ATTRIBUTE noopt OF lpm_ff_4: COMPONENT IS true;
+
+COMPONENT lpm_ff_5
+	PORT(enable : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 sset : IN STD_LOGIC;
+		 aclr : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF lpm_ff_5: COMPONENT IS true;
+ATTRIBUTE noopt OF lpm_ff_5: COMPONENT IS true;
+
+COMPONENT lpm_ff_8
+	PORT(enable : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 sset : IN STD_LOGIC;
+		 aclr : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF lpm_ff_8: COMPONENT IS true;
+ATTRIBUTE noopt OF lpm_ff_8: COMPONENT IS true;
+
+COMPONENT busmux_2
+	PORT(sel : IN STD_LOGIC;
+		 dataa : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 datab : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF busmux_2: COMPONENT IS true;
+ATTRIBUTE noopt OF busmux_2: COMPONENT IS true;
+
+COMPONENT busmux_3
+	PORT(sel : IN STD_LOGIC;
+		 dataa : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 datab : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF busmux_3: COMPONENT IS true;
+ATTRIBUTE noopt OF busmux_3: COMPONENT IS true;
+
+COMPONENT busmux_6
+	PORT(sel : IN STD_LOGIC;
+		 dataa : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 datab : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF busmux_6: COMPONENT IS true;
+ATTRIBUTE noopt OF busmux_6: COMPONENT IS true;
+
+COMPONENT busmux_7
+	PORT(sel : IN STD_LOGIC;
+		 dataa : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 datab : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0));
+END COMPONENT;
+ATTRIBUTE black_box OF busmux_7: COMPONENT IS true;
+ATTRIBUTE noopt OF busmux_7: COMPONENT IS true;
+
+COMPONENT lpm_decode0
+	PORT(data : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+		 eq0 : OUT STD_LOGIC;
+		 eq1 : OUT STD_LOGIC;
+		 eq2 : OUT STD_LOGIC;
+		 eq3 : OUT STD_LOGIC
+	);
+END COMPONENT;
+
+COMPONENT g54_enablelogic
+	PORT(push : IN STD_LOGIC;
+		 pop : IN STD_LOGIC;
+		 full : IN STD_LOGIC;
+		 empty : IN STD_LOGIC;
+		 p_en : IN STD_LOGIC;
+		 enable : OUT STD_LOGIC
+	);
+END COMPONENT;
+
+COMPONENT lpm_counter0
+	PORT(sclr : IN STD_LOGIC;
+		 sload : IN STD_LOGIC;
+		 sset : IN STD_LOGIC;
+		 updown : IN STD_LOGIC;
+		 clock : IN STD_LOGIC;
+		 data : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 q : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END COMPONENT;
+
+COMPONENT lpm_mux1
+	PORT(data0x : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 data1x : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 data2x : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 data3x : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 data4x : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 sel : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
+		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END COMPONENT;
+
+COMPONENT g54_comp6block
+	PORT(A : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 B : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 AeqB : OUT STD_LOGIC
+	);
+END COMPONENT;
+
+COMPONENT g54_pop_enable
+	PORT(clk : IN STD_LOGIC;
+		 N : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		 P_EN : OUT STD_LOGIC_VECTOR(51 DOWNTO 0)
+	);
+END COMPONENT;
+
+COMPONENT lpm_constant0
+	PORT(		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END COMPONENT;
+
+COMPONENT lpm_constant1
+	PORT(		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END COMPONENT;
+
+COMPONENT lpm_constant2
+	PORT(		 result : OUT STD_LOGIC_VECTOR(5 DOWNTO 0)
+	);
+END COMPONENT;
+
+SIGNAL	data0x :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	data1x :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	data2x :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	data3x :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	data4x :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	empty_ALTERA_SYNTHESIZED :  STD_LOGIC;
+SIGNAL	full_ALTERA_SYNTHESIZED :  STD_LOGIC;
+SIGNAL	init :  STD_LOGIC;
+SIGNAL	nop :  STD_LOGIC;
+SIGNAL	NUM_ALTERA_SYNTHESIZED :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	p_en :  STD_LOGIC_VECTOR(51 DOWNTO 0);
+SIGNAL	pop :  STD_LOGIC;
+SIGNAL	push :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_0 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_1 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_2 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_3 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_4 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_5 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_6 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_7 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_8 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_9 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_10 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+SIGNAL	SYNTHESIZED_WIRE_11 :  STD_LOGIC;
+SIGNAL	SYNTHESIZED_WIRE_12 :  STD_LOGIC_VECTOR(5 DOWNTO 0);
+
+
+BEGIN 
+
+
+
+b2v_inst : lpm_ff_0
+PORT MAP(enable => SYNTHESIZED_WIRE_0,
+		 clock => clk,
+		 sset => init,
+		 aclr => RST,
+		 data => SYNTHESIZED_WIRE_1,
+		 q => data1x);
+
+
+b2v_inst115 : lpm_decode0
+PORT MAP(data => mode,
+		 eq0 => pop,
+		 eq1 => push,
+		 eq2 => init);
+
+
+b2v_inst12 : lpm_ff_1
+PORT MAP(enable => SYNTHESIZED_WIRE_2,
+		 clock => clk,
+		 aclr => RST,
+		 data => data3x,
+		 q => data4x);
+
+
+b2v_inst120 : g54_enablelogic
+PORT MAP(push => push,
+		 pop => pop,
+		 full => full_ALTERA_SYNTHESIZED,
+		 empty => empty_ALTERA_SYNTHESIZED,
+		 p_en => p_en(0),
+		 enable => SYNTHESIZED_WIRE_7);
+
+
+b2v_inst121 : g54_enablelogic
+PORT MAP(push => push,
+		 pop => pop,
+		 full => full_ALTERA_SYNTHESIZED,
+		 empty => empty_ALTERA_SYNTHESIZED,
+		 p_en => p_en(1),
+		 enable => SYNTHESIZED_WIRE_0);
+
+
+b2v_inst122 : g54_enablelogic
+PORT MAP(push => push,
+		 pop => pop,
+		 full => full_ALTERA_SYNTHESIZED,
+		 empty => empty_ALTERA_SYNTHESIZED,
+		 p_en => p_en(2),
+		 enable => SYNTHESIZED_WIRE_11);
+
+
+b2v_inst123 : g54_enablelogic
+PORT MAP(		 enable => SYNTHESIZED_WIRE_9);
+
+
+b2v_inst124 : g54_enablelogic
+PORT MAP(push => push,
+		 pop => pop,
+		 full => full_ALTERA_SYNTHESIZED,
+		 empty => empty_ALTERA_SYNTHESIZED,
+		 p_en => p_en(4),
+		 enable => SYNTHESIZED_WIRE_2);
+
+
+b2v_inst2 : busmux_2
+PORT MAP(sel => pop,
+		 dataa => data0x,
+		 datab => data2x,
+		 result => SYNTHESIZED_WIRE_1);
+
+
+b2v_inst21 : lpm_counter0
+PORT MAP(sclr => RST,
+		 sload => SYNTHESIZED_WIRE_3,
+		 sset => init,
+		 updown => push,
+		 clock => clk,
+		 data => SYNTHESIZED_WIRE_4,
+		 q => NUM_ALTERA_SYNTHESIZED);
+
+
+SYNTHESIZED_WIRE_3 <= push OR pop;
+
+
+b2v_inst25 : lpm_mux1
+PORT MAP(sel => ADDR(2 DOWNTO 0),
+		 result => value);
+
+
+b2v_inst26 : g54_comp6block
+PORT MAP(A => NUM_ALTERA_SYNTHESIZED,
+		 B => SYNTHESIZED_WIRE_5,
+		 AeqB => empty_ALTERA_SYNTHESIZED);
+
+
+b2v_inst27 : g54_comp6block
+PORT MAP(A => NUM_ALTERA_SYNTHESIZED,
+		 B => SYNTHESIZED_WIRE_6,
+		 AeqB => full_ALTERA_SYNTHESIZED);
+
+
+b2v_inst28 : g54_pop_enable
+PORT MAP(clk => clk,
+		 N => ADDR,
+		 P_EN => p_en);
+
+
+b2v_inst29 : lpm_constant0
+PORT MAP(		 result => SYNTHESIZED_WIRE_5);
+
+
+b2v_inst3 : busmux_3
+PORT MAP(sel => pop,
+		 dataa => DATA,
+		 datab => data1x,
+		 result => SYNTHESIZED_WIRE_8);
+
+
+b2v_inst30 : lpm_constant1
+PORT MAP(		 result => SYNTHESIZED_WIRE_6);
+
+
+b2v_inst31 : lpm_constant2
+PORT MAP(		 result => SYNTHESIZED_WIRE_4);
+
+
+b2v_inst4 : lpm_ff_4
+PORT MAP(enable => SYNTHESIZED_WIRE_7,
+		 clock => clk,
+		 sset => init,
+		 aclr => RST,
+		 data => SYNTHESIZED_WIRE_8,
+		 q => data0x);
+
+
+b2v_inst5 : lpm_ff_5
+PORT MAP(enable => SYNTHESIZED_WIRE_9,
+		 clock => clk,
+		 sset => init,
+		 aclr => RST,
+		 data => SYNTHESIZED_WIRE_10,
+		 q => data3x);
+
+
+b2v_inst6 : busmux_6
+PORT MAP(sel => pop,
+		 dataa => data2x,
+		 datab => data4x,
+		 result => SYNTHESIZED_WIRE_10);
+
+
+b2v_inst7 : busmux_7
+PORT MAP(sel => pop,
+		 dataa => data1x,
+		 datab => data3x,
+		 result => SYNTHESIZED_WIRE_12);
+
+
+b2v_inst8 : lpm_ff_8
+PORT MAP(enable => SYNTHESIZED_WIRE_11,
+		 clock => clk,
+		 sset => init,
+		 aclr => RST,
+		 data => SYNTHESIZED_WIRE_12,
+		 q => data2x);
+
+empty <= empty_ALTERA_SYNTHESIZED;
+full <= full_ALTERA_SYNTHESIZED;
+NUM <= NUM_ALTERA_SYNTHESIZED;
+
+END bdf_type;
